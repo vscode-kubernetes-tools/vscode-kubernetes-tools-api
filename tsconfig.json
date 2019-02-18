@@ -6,6 +6,7 @@
         "lib": [
             "es6"
         ],
+        "esModuleInterop": true,
         "sourceMap": true,
         "outDir": "./js",
         "rootDir": "./ts",
@@ -23,6 +24,7 @@
     },
     "exclude": [
         "node_modules",
+        "js",
         ".vscode-test"
     ]
 }
