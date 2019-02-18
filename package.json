@@ -5,6 +5,7 @@
   "main": "js/index.js",
   "types": "js/index.d.ts",
   "scripts": {
+    "postinstall": "node ./node_modules/vscode/bin/install",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
