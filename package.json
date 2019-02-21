@@ -8,10 +8,9 @@
     "js/**/*"
   ],
   "scripts": {
-    "postinstall": "node ./node_modules/vscode/bin/install",
     "compile": "tsc -p ./",
     "watch": "tsc -watch -p ./",
-    "prepare": "npm run compile",
+    "prepare": "node ./node_modules/vscode/bin/install && npm run compile",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
