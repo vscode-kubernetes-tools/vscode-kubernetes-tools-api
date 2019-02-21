@@ -5,6 +5,12 @@ import { ClusterProviderV1 } from './clusterprovider/v1';
 export { ClusterProviderAPI } from './clusterprovider/versions';
 export { ClusterProviderV1 } from './clusterprovider/v1';
 
+// NOTE: This declaration MUST come before the declaration of 'extension',
+// because otherwise it is undefined when ExtensionHelper tries to initialise,
+// and that causes the VS Code extensions API to fail in exciting and hard
+// to debug ways.
+export const MS_KUBERNETES_EXTENSION_ID = "ms-kubernetes-tools.vscode-kubernetes-tools";
+
 export const extension: Extension = new ExtensionHelper();
 
 export interface Extension {
@@ -12,8 +18,6 @@ export interface Extension {
     get<T>(component: ComponentKey<T>, version: Version<T>): Promise<API<T>>;
     readonly clusterProvider: ClusterProviderAPI;
 }
-
-export const MS_KUBERNETES_EXTENSION_ID = "ms-kubernetes-tools.vscode-kubernetes.tools";
 
 export interface APIUnavailable {
     readonly available: false;
