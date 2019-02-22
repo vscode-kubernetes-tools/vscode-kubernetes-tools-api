@@ -43,4 +43,14 @@ export namespace ClusterProviderV1 {
     }
 
     export type Sequence<T> = T | Thenable<T> | Observable<T>;
+
+    export const WIZARD_FORM_NAME = "form";
+
+    export const NEXT_PAGE_FN_NAME = "onNext";
+    export const NEXT_PAGE = "onNext();";
+
+    export const CLUSTER_TYPE_KEY = 'clusterType';
+
+    export const SENDING_STEP_KEY = 'sendingStep';
+    export const SELECT_CLUSTER_TYPE_STEP_ID = 'selectClusterType';
 }
