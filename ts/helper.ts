@@ -1,5 +1,6 @@
 import * as vscode from 'vscode';
-import { Extension, APIBroker, API, ComponentKey, Version, MS_KUBERNETES_EXTENSION_ID } from '.';
+import { Extension, APIBroker, API, ComponentKey, Version } from '.';
+import { MS_KUBERNETES_EXTENSION_ID } from './constants';
 import { ClusterProviderV1 } from './clusterprovider/v1';
 
 class Lazy<T> {
