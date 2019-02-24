@@ -44,7 +44,7 @@ export namespace ClusterProviderV1 {
          */
         readonly id: string;
         /**
-         * A display mame for the cluster type. This is displayed in the
+         * A display name for the cluster type. This is displayed in the
          * cluster type drop-down at the start of the Add Existing Cluster
          * or Create Cluster wizard.
          */
@@ -145,9 +145,9 @@ export namespace ClusterProviderV1 {
      * it must call this code fragment from its triggering event.
      * @example
      * `<form id='${k8s.clusterprovider.WIZARD_FORM_NAME}'>
-     *     <input type='hidden' name='${k8s.clusterprovider.CLUSTER_TYPE_KEY}' value='mytype' />
-     *     <button onclick='${k8s.clusterprovider.NEXT_PAGE}'>Next &gt;</button>
-     * </form>`
+          <input type='hidden' name='${k8s.clusterprovider.CLUSTER_TYPE_KEY}' value='mytype' />
+          <button onclick='${k8s.clusterprovider.NEXT_PAGE}'>Next &gt;</button>
+      </form>`
      */
     export const NEXT_PAGE = "onNext();";
 
