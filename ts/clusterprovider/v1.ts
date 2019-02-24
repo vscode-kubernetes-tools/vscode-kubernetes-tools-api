@@ -72,27 +72,106 @@ export namespace ClusterProviderV1 {
         next(wizard: Wizard, action: ClusterProviderAction, message: any): void;
     }
 
+    /**
+     * The user interface component that hosts the Add Existing Cluster and
+     * Create Cluster wizards. Your cluster provider can display UI by calling
+     * methods of this interface.
+     */
     export interface Wizard {
+        /**
+         * Shows the specified HTML in the user interface.
+         * @param htmlBody The HTML to be displayed. In addition to a HTML string,
+         * this can be a Promise that resolves to a HTML string (useful for async
+         * scenarios), or an Observable producing a series of HTML strings (useful for
+         * progress indication scenarios).
+         */
         showPage(htmlBody: Sequence<string>): Promise<void>;
     }
 
+    /**
+     * A sequence of values pushed by a data source. In the context of a cluster provider,
+     * you might implement this interface if you have a function which returns a sequence
+     * of pages such as a progress display.
+     */
     export interface Observable<T> {
+        /**
+         * Subscribes an object to be notified when a new data value is pushed.
+         * @param observer The object to be subscribed.
+         */
         subscribe(observer: Observer<T>): void;
     }
 
+    /**
+     * An object that observes an Observable sequence. In the context of the cluster provider,
+     * this is implemented by the Kubernetes extension; if you are implementing a sequence
+     * of asynchronous pages (such as a progress display) as an Observable, then your Observable
+     * calls the onNext method of any subscribed Observer(s).
+     */
     export interface Observer<T> {
+        /**
+         * Notifies the observer that the Observable has pushed a value. In the context of a cluster
+         * provider, you would call this on the provided Observer to update a displayed user interface.
+         * @param value The value being pushed - in the context of the cluster provider, the updated
+         * HTML to display.
+         * @returns In the context of the cluster provider, indicates whether the update was delivered
+         * to the wizard. You can normally ignore the return value except to await it.
+         */
         onNext(value: T): Promise<boolean>;
     }
 
+    /**
+     * A value, or an asynchronous sequence of one (Thenable) or more (Observable) values.
+     * In the context of a cluster provider, this represents a UI page being provided
+     * synchronously, a UI page being provided asynchronously, or a sequence of UI pages
+     * being provided asynchronously based on external events (typically used for progress
+     * indication).
+     */
     export type Sequence<T> = T | Thenable<T> | Observable<T>;
 
+    /**
+     * If a cluster provider UI page gathers user input using a form, you must use this
+     * name as the id property of the form.
+     */
     export const WIZARD_FORM_NAME = "form";
 
+    /**
+     * The name of the function invoked by NEXT_PAGE to navigate to the next page of the cluster
+     * provider UI. This is provided in case you need to call the function in a custom way;
+     * for most situations, use the NEXT_PAGE code fragment.
+     */
     export const NEXT_PAGE_FN_NAME = "onNext";
+    /**
+     * If a cluster provider UI page provides a way for the user to navigate to the next page,
+     * it must call this code fragment from its triggering event.
+     * @example
+     * `<form id='${k8s.clusterprovider.WIZARD_FORM_NAME}'>
+     *     <input type='hidden' name='${k8s.clusterprovider.CLUSTER_TYPE_KEY}' value='mytype' />
+     *     <button onclick='${k8s.clusterprovider.NEXT_PAGE}'>Next &gt;</button>
+     * </form>`
+     */
     export const NEXT_PAGE = "onNext();";
 
+    /**
+     * If a cluster provider UI page provides a way for the user to navigatge to the next page,
+     * it must submit a form containing at least this key with a value of the cluster type's 'id'
+     * property.
+     * @example
+     * `<form id='${k8s.clusterprovider.WIZARD_FORM_NAME}'>
+     *     <input type='hidden' name='${k8s.clusterprovider.CLUSTER_TYPE_KEY}' value='mytype' />
+     *     <button onclick='${k8s.clusterprovider.NEXT_PAGE}'>Next &gt;</button>
+     * </form>`
+     */
     export const CLUSTER_TYPE_KEY = 'clusterType';
 
+    /**
+     * When a wizard-provided step calls your cluster provider's 'next' method, the 'message'
+     * parameter will include this key to identify which step sent the message.  Currently
+     * the only value the wizard will send is SELECT_CLUSTER_TYPE_STEP_ID.
+     */
     export const SENDING_STEP_KEY = 'sendingStep';
+    /**
+     * Sent as the message[SENDING_STEP_KEY] value when the wizard 'select cluster type' screen
+     * invokes your cluster provider.
+     */
     export const SELECT_CLUSTER_TYPE_STEP_ID = 'selectClusterType';
 }
