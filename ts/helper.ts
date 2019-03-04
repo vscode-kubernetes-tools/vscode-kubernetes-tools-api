@@ -2,6 +2,8 @@ import * as vscode from 'vscode';
 import { Extension, APIBroker, API, ComponentKey, Version } from '.';
 import { MS_KUBERNETES_EXTENSION_ID } from './constants';
 import { ClusterProviderV1 } from './clusterprovider/v1';
+import { KubectlV1 } from './kubectl/v1';
+import { CommandTargetsV1 } from './command-targets/v1';
 
 class Lazy<T> {
     private value: T | undefined = undefined;
@@ -29,6 +31,12 @@ export class ExtensionHelper implements Extension {
     }
     readonly clusterProvider = readonlify({
         v1: this.get<ClusterProviderV1>("clusterprovider", "v1"),
+    });
+    readonly kubectl = readonlify({
+        v1: this.get<KubectlV1>("kubectl", "v1"),
+    });
+    readonly commandTargets = readonlify({
+        v1: this.get<CommandTargetsV1>("commandtargets", "v1"),
     });
 }
 
