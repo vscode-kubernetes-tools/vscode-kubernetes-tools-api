@@ -5,6 +5,8 @@ import { KubectlAPI } from './kubectl/versions';
 import { KubectlV1 } from './kubectl/v1';
 import { CommandTargetsAPI } from './command-targets/versions';
 import { CommandTargetsV1 } from './command-targets/v1';
+import { ExplorerTreeAPI } from './explorer-tree/versions';
+import { ExplorerTreeV1 } from './explorer-tree/v1';
 
 export { ClusterProviderAPI } from './clusterprovider/versions';
 export { ClusterProviderV1 } from './clusterprovider/v1';
@@ -63,6 +65,10 @@ export interface Extension {
      * Provides access to the Kubernetes extension's Cluster Provider API.
      */
     readonly commandTargets: CommandTargetsAPI;
+    /**
+     * Provides access to the Kubernetes extension's Explorer Tree API.
+     */
+    readonly explorerTree: ExplorerTreeAPI;
 }
 
 /**
@@ -135,6 +141,7 @@ export type ComponentKey<T> =
     T extends ClusterProviderV1 ? "clusterprovider" :
     T extends KubectlV1 ? "kubectl" :
     T extends CommandTargetsV1 ? "commandtargets" :
+    T extends ExplorerTreeV1 ? "explorertree" :
     "invalid_api_interface";
 
 /**
@@ -145,4 +152,5 @@ export type Version<T> =
     T extends ClusterProviderV1 ? "v1" :
     T extends KubectlV1 ? "v1" :
     T extends CommandTargetsV1 ? "v1" :
+    T extends ExplorerTreeV1 ? "v1" :
     "invalid_api_interface";

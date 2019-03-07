@@ -4,6 +4,7 @@ import { MS_KUBERNETES_EXTENSION_ID } from './constants';
 import { ClusterProviderV1 } from './clusterprovider/v1';
 import { KubectlV1 } from './kubectl/v1';
 import { CommandTargetsV1 } from './command-targets/v1';
+import { ExplorerTreeV1 } from './explorer-tree/v1';
 
 class Lazy<T> {
     private value: T | undefined = undefined;
@@ -37,6 +38,9 @@ export class ExtensionHelper implements Extension {
     });
     readonly commandTargets = readonlify({
         v1: this.get<CommandTargetsV1>("commandtargets", "v1"),
+    });
+    readonly explorerTree = readonlify({
+        v1: this.get<ExplorerTreeV1>("explorertree", "v1"),
     });
 }
 
