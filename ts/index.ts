@@ -1,9 +1,19 @@
 import { ExtensionHelper } from './helper';
 import { ClusterProviderAPI } from './clusterprovider/versions';
 import { ClusterProviderV1 } from './clusterprovider/v1';
+import { KubectlAPI } from './kubectl/versions';
+import { KubectlV1 } from './kubectl/v1';
+import { CommandTargetsAPI } from './command-targets/versions';
+import { CommandTargetsV1 } from './command-targets/v1';
 
 export { ClusterProviderAPI } from './clusterprovider/versions';
 export { ClusterProviderV1 } from './clusterprovider/v1';
+
+export { KubectlAPI } from './kubectl/versions';
+export { KubectlV1 } from './kubectl/v1';
+
+export { CommandTargetsAPI } from './command-targets/versions';
+export { CommandTargetsV1 } from './command-targets/v1';
 
 /**
  * Provides convenient access to the Kubernetes extension's API.
@@ -45,6 +55,14 @@ export interface Extension {
      * Provides access to the Kubernetes extension's Cluster Provider API.
      */
     readonly clusterProvider: ClusterProviderAPI;
+    /**
+     * Provides access to the Kubernetes extension's Kubectl API.
+     */
+    readonly kubectl: KubectlAPI;
+    /**
+     * Provides access to the Kubernetes extension's Cluster Provider API.
+     */
+    readonly commandTargets: CommandTargetsAPI;
 }
 
 /**
@@ -115,6 +133,8 @@ export interface APIBroker {
  */
 export type ComponentKey<T> =
     T extends ClusterProviderV1 ? "clusterprovider" :
+    T extends KubectlV1 ? "kubectl" :
+    T extends CommandTargetsV1 ? "commandtargets" :
     "invalid_api_interface";
 
 /**
@@ -123,4 +143,6 @@ export type ComponentKey<T> =
  */
 export type Version<T> =
     T extends ClusterProviderV1 ? "v1" :
+    T extends KubectlV1 ? "v1" :
+    T extends CommandTargetsV1 ? "v1" :
     "invalid_api_interface";
