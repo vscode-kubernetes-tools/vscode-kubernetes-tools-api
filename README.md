@@ -1,4 +1,12 @@
-# VS Code Kubernetes Tools API
+# API Library for Visual Studio Code Kubernetes Tools
+
+A NPM package providing documentation and helpers for using the [Kubernetes extension for Visual
+Studio Code](https://marketplace.visualstudio.com/items?itemName=ms-kubernetes-tools.vscode-kubernetes-tools)
+in your own VS Code extensions.
+
+This is a placeholder release of the package for internal development purposes; the API surfaced
+in this package is not yet in the released build of the extension.  Full package
+documentation will be added when the extension API is released.
 
 # Contributing
 
