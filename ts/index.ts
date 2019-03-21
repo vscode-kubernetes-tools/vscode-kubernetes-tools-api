@@ -3,8 +3,8 @@ import { ClusterProviderAPI } from './clusterprovider/versions';
 import { ClusterProviderV1 } from './clusterprovider/v1';
 import { KubectlAPI } from './kubectl/versions';
 import { KubectlV1 } from './kubectl/v1';
-import { CommandTargetsAPI } from './command-targets/versions';
-import { CommandTargetsV1 } from './command-targets/v1';
+import { ClusterExplorerAPI } from './cluster-explorer/versions';
+import { ClusterExplorerV1 } from './cluster-explorer/v1';
 
 export { ClusterProviderAPI } from './clusterprovider/versions';
 export { ClusterProviderV1 } from './clusterprovider/v1';
@@ -12,8 +12,8 @@ export { ClusterProviderV1 } from './clusterprovider/v1';
 export { KubectlAPI } from './kubectl/versions';
 export { KubectlV1 } from './kubectl/v1';
 
-export { CommandTargetsAPI } from './command-targets/versions';
-export { CommandTargetsV1 } from './command-targets/v1';
+export { ClusterExplorerAPI } from './cluster-explorer/versions';
+export { ClusterExplorerV1 } from './cluster-explorer/v1';
 
 /**
  * Provides convenient access to the Kubernetes extension's API.
@@ -60,9 +60,9 @@ export interface Extension {
      */
     readonly kubectl: KubectlAPI;
     /**
-     * Provides access to the Kubernetes extension's Cluster Provider API.
+     * Provides access to the Kubernetes extension's Cluster Explorer API.
      */
-    readonly commandTargets: CommandTargetsAPI;
+    readonly clusterExplorer: ClusterExplorerAPI;
 }
 
 /**
@@ -134,7 +134,7 @@ export interface APIBroker {
 export type ComponentKey<T> =
     T extends ClusterProviderV1 ? "clusterprovider" :
     T extends KubectlV1 ? "kubectl" :
-    T extends CommandTargetsV1 ? "commandtargets" :
+    T extends ClusterExplorerV1 ? "clusterexplorer" :
     "invalid_api_interface";
 
 /**
@@ -144,5 +144,5 @@ export type ComponentKey<T> =
 export type Version<T> =
     T extends ClusterProviderV1 ? "v1" :
     T extends KubectlV1 ? "v1" :
-    T extends CommandTargetsV1 ? "v1" :
+    T extends ClusterExplorerV1 ? "v1" :
     "invalid_api_interface";
