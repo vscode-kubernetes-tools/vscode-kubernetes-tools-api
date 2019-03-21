@@ -162,13 +162,12 @@ export namespace ClusterExplorerV1 {
     }
 
     /**
-     * A tree node representing a Kubernetes context - that is, a cluster plus the credentials
-     * to access that cluster.
+     * A tree node representing the active Kubernetes context - that is, the cluster
+     * currently selected in kubeconfig, plus the credentials to access that cluster.
      *
      * For attaching commands to a context node, the viewItem
      * context is "vsKubernetes.cluster" for normal clusters,
-     * or "vsKubernetes.minikubeCluster" for Minikube clusters.  If the cluster is not the
-     * active cluster, then the context also has a ".inactive" suffix, e.g. "vsKubernetes.cluster.inactive".
+     * or "vsKubernetes.minikubeCluster" for Minikube clusters.
      * Use a regular expression match in your 'when' clause for forward compatibility.
      */
     export interface ClusterExplorerContextNode {
@@ -176,6 +175,27 @@ export namespace ClusterExplorerV1 {
          * Identifies the node as representing a context.
          */
         readonly nodeType: 'context';
+        /**
+         * The name of the context.  Typically the name of the cluster, but users can
+         * rename contexts if they wish.
+         */
+        readonly name: string;
+    }
+
+    /**
+     * A tree node representing an inactive Kubernetes context - that is, a cluster NOT
+     * currently selected in kubeconfig, plus the credentials to access that cluster.
+     *
+     * For attaching commands to a context node, the viewItem
+     * context is "vsKubernetes.cluster.inactive" for normal clusters,
+     * or "vsKubernetes.minikubeCluster.inactive" for Minikube clusters.
+     * Use a regular expression match in your 'when' clause for forward compatibility.
+     */
+    export interface ClusterExplorerInactiveContextNode {
+        /**
+         * Identifies the node as representing an inactive context.
+         */
+        readonly nodeType: 'context.inactive';
         /**
          * The name of the context.  Typically the name of the cluster, but users can
          * rename contexts if they wish.
