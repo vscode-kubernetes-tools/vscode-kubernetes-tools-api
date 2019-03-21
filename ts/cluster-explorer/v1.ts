@@ -273,6 +273,7 @@ export namespace ClusterExplorerV1 {
         ClusterExplorerGroupingFolderNode |
         ClusterExplorerResourceFolderNode |
         ClusterExplorerContextNode |
+        ClusterExplorerInactiveContextNode |
         ClusterExplorerConfigDataItemNode |
         ClusterExplorerErrorNode |
         ClusterExplorerHelmReleaseNode |
