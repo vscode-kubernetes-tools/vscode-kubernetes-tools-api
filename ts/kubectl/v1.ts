@@ -1,3 +1,5 @@
+import * as vscode from 'vscode';
+
 /**
  * Supports invoking kubectl using the Kubernetes extension's configuration
  * settings and user interface.
@@ -12,6 +14,17 @@ export interface KubectlV1 {
      * could not invoke kubectl.
      */
     invokeCommand(command: string): Promise<KubectlV1.ShellResult | undefined>;
+
+    /**
+     * Forwards a local port to a port on a pod.
+     * @param podName The pod to which to forward.
+     * @param podNamespace The namespace containing the pod.
+     * @param localPort The local port to be forwarded.
+     * @param remotePort The port on the pod to which to forward.
+     * @returns A Disposable which can be used to terminate port forwarding, or undefined
+     * if port forwarding failed.
+     */
+    portForward(podName: string, podNamespace: string | undefined, localPort: number, remotePort: number): Promise<vscode.Disposable | undefined>;
 }
 
 export namespace KubectlV1 {
