@@ -23,6 +23,9 @@ export class ExtensionHelper implements Extension {
         if (!apiBroker) {
             return { available: false, reason: "extension-not-available" };
         }
+        if (!apiBroker.get) {
+            return { available: false, reason: "version-unknown" };
+        }
         return apiBroker.get(component, version);
     }
     async get<T>(component: ComponentKey<T>, version: Version<T>): Promise<API<T>> {
