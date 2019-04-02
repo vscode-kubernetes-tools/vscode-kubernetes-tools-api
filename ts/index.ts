@@ -5,6 +5,8 @@ import { KubectlAPI } from './kubectl/versions';
 import { KubectlV1 } from './kubectl/v1';
 import { ClusterExplorerAPI } from './cluster-explorer/versions';
 import { ClusterExplorerV1 } from './cluster-explorer/v1';
+import { HelmAPI } from './helm/versions';
+import { HelmV1 } from './helm/v1';
 
 export { ClusterProviderAPI } from './clusterprovider/versions';
 export { ClusterProviderV1 } from './clusterprovider/v1';
@@ -14,6 +16,9 @@ export { KubectlV1 } from './kubectl/v1';
 
 export { ClusterExplorerAPI } from './cluster-explorer/versions';
 export { ClusterExplorerV1 } from './cluster-explorer/v1';
+
+export { HelmAPI } from './helm/versions';
+export { HelmV1 } from './helm/v1';
 
 /**
  * Provides convenient access to the Kubernetes extension's API.
@@ -63,6 +68,10 @@ export interface Extension {
      * Provides access to the Kubernetes extension's Cluster Explorer API.
      */
     readonly clusterExplorer: ClusterExplorerAPI;
+    /**
+     * Provides access to the Kubernetes extension's Helm API.
+     */
+    readonly helm: HelmAPI;
 }
 
 /**
@@ -135,6 +144,7 @@ export type ComponentKey<T> =
     T extends ClusterProviderV1 ? "clusterprovider" :
     T extends KubectlV1 ? "kubectl" :
     T extends ClusterExplorerV1 ? "clusterexplorer" :
+    T extends HelmV1 ? "helm" :
     "invalid_api_interface";
 
 /**
@@ -145,4 +155,5 @@ export type Version<T> =
     T extends ClusterProviderV1 ? "v1" :
     T extends KubectlV1 ? "v1" :
     T extends ClusterExplorerV1 ? "v1" :
+    T extends HelmV1 ? "v1" :
     "invalid_api_interface";

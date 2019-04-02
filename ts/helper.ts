@@ -4,6 +4,7 @@ import { MS_KUBERNETES_EXTENSION_ID } from './constants';
 import { ClusterProviderV1 } from './clusterprovider/v1';
 import { KubectlV1 } from './kubectl/v1';
 import { ClusterExplorerV1 } from './cluster-explorer/v1';
+import { HelmV1 } from './helm/v1';
 
 class Lazy<T> {
     private value: T | undefined = undefined;
@@ -40,6 +41,9 @@ export class ExtensionHelper implements Extension {
     });
     readonly clusterExplorer = readonlify({
         v1: this.get<ClusterExplorerV1>("clusterexplorer", "v1"),
+    });
+    readonly helm = readonlify({
+        v1: this.get<HelmV1>("helm", "v1"),
     });
 }
 
