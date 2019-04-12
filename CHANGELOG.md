@@ -1,5 +1,9 @@
 # Change Log
 
+## 0.0.5
+
+* Added Cloud Explorer API
+
 ## 0.0.4
 
 * Added Helm API
