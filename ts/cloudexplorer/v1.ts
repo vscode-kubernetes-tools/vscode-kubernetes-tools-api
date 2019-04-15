@@ -14,6 +14,31 @@ export interface CloudExplorerV1 {
      */
     registerCloudProvider(cloudProvider: CloudExplorerV1.CloudProvider): void;
     /**
+     * Resolves a target passed to a command handler as part of a right-click on a node in the
+     * Kubernetes extension's Cloud Explorer, converting it to a well-defined object
+     * from which you can extract your original resource object.
+     * @param target The object passed by Visual Studio Code as the command target.
+     * @returns An object providing information about the type and properties of
+     * the node that was right-clicked to invoke the command, or undefined if the command
+     * target is not a Cloud Explorer node.
+     * @example
+function onFooCommand(commandTarget?: any) {
+  const node = cloudExplorer.resolveCommandTarget(commandTarget);
+  if (!node) {
+    // the command wasn't issued by right-clicking in the Cloud Explorer -
+    // it's up to you to interpret it
+    return;
+  }
+  if (node.nodeType === 'cloud') {
+      console.log("You clicked cloud " + node.cloudName);
+  } else if (node.nodeType === 'resource') {
+      const cluster = node.cloudResource as ContosoCluster;
+      console.log(`You clicked ${cluster.accountId}/${cluster.resourceKey}`);
+  }
+}
+     */
+    resolveCommandTarget(target?: any): CloudExplorerV1.CloudExplorerNode | undefined;
+    /**
      * Refreshes the Cloud Explorer.
      */
     refresh(): void;
@@ -45,6 +70,43 @@ export namespace CloudExplorerV1 {
          */
         getKubeconfigYaml(cluster: any): Promise<string | undefined>;
     }
+
+    /**
+     * A tree node representing a cloud in Cloud Explorer.
+     */
+    export interface CloudExplorerCloudNode {
+        /**
+         * Identifies the tree node as representing a cloud.
+         */
+        readonly nodeType: 'cloud';
+        /**
+         * The name of the cloud.
+         */
+        readonly cloudName: string;
+    }
+
+    /**
+     * A tree node representing a cloud-specific resource in Cloud Explorer.
+     */
+    export interface CloudExplorerResourceNode {
+        /**
+         * Identifies the tree node as representing a cloud resource.
+         */
+        readonly nodeType: 'resource';
+        /**
+         * The name of the cloud containing the resource.
+         */
+        readonly cloudName: string;
+        /**
+         * The cloud resource data, as originally created by the cloud provider's TreeDataProvider.
+         */
+        readonly cloudResource: any;
+    }
+
+    /**
+     * A node in the Kubernetes extension's Clouds tree.
+     */
+    export type CloudExplorerNode = CloudExplorerCloudNode | CloudExplorerResourceNode;
 
     /**
      * If you want the Kubernetes extension to provide the standard 'Merge into Kubeconfig'
