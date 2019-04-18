@@ -37,6 +37,12 @@ function onFooCommand(commandTarget?: any) {
      */
     registerNodeContributor(nodeContributor: ClusterExplorerV1.NodeContributor): void;
     /**
+     * Registers an object to customize the appearance of nodes in the Cluster Explorer.  The object will be
+     * consulted every time the Kubernetes extension displays a tree node.
+     * @param nodeUICustomizer An object which can customize the appearance of nodes in the Cluster Explorer.
+     */
+    registerNodeUICustomizer(nodeUICustomizer: ClusterExplorerV1.NodeUICustomizer): void;
+    /**
      * Refreshes the Cluster Explorer.
      */
     refresh(): void;
@@ -75,6 +81,22 @@ export namespace ClusterExplorerV1 {
          * It is okay to return an empty array.
          */
         getChildren(parent: ClusterExplorerV1.ClusterExplorerNode | undefined): Promise<Node[]>;
+    }
+
+    /**
+     * Provides logic for customizing the appearance of nodes in the Cluster Explorer tree.
+     */
+    export interface NodeUICustomizer {
+        /**
+         * Called by the Kubernetes extension when rendering a node for display.
+         * @param node The node which may be customized.
+         * @param treeItem The TreeItem which will represent the node. You may set properties
+         * on this TreeItem to alter how it is displayed.
+         * @returns void if you do not wish to customize this node, or if you can complete
+         * all customization synchronously; or a Thenable which completes once you have
+         * completed asynchronous customization.
+         */
+        customize(node: ClusterExplorerNode, treeItem: vscode.TreeItem): void | Thenable<void>;
     }
 
     /**

@@ -1,5 +1,9 @@
 # Change Log
 
+## 0.0.6
+
+* Updated Cluster Explorer API to support customising the appearance of existing nodes
+
 ## 0.0.5
 
 * Added Cloud Explorer API
