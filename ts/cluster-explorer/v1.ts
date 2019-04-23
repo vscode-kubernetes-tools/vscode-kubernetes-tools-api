@@ -89,7 +89,7 @@ export namespace ClusterExplorerV1 {
     export interface NodeUICustomizer {
         /**
          * Called by the Kubernetes extension when rendering a node for display.
-         * @param node The node which may be customized.
+         * @param node The node whose appearance may be customized.
          * @param treeItem The TreeItem which will represent the node. You may set properties
          * on this TreeItem to alter how it is displayed.
          * @returns void if you do not wish to customize this node, or if you can complete
