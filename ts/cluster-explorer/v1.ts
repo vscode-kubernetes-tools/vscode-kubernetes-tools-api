@@ -37,6 +37,10 @@ function onFooCommand(commandTarget?: any) {
      */
     registerNodeContributor(nodeContributor: ClusterExplorerV1.NodeContributor): void;
     /**
+     * Exposes built-in node types for reuse as custom NodeContributors.
+     */
+    readonly nodeSources: ClusterExplorerV1.NodeSources;
+    /**
      * Registers an object to customize the appearance of nodes in the Cluster Explorer.  The object will be
      * consulted every time the Kubernetes extension displays a tree node.
      * @param nodeUICustomizer An object which can customize the appearance of nodes in the Cluster Explorer.
@@ -314,5 +318,49 @@ export namespace ClusterExplorerV1 {
          * or 'rs'.  For example, 'kubectl get deployment', 'kubectl delete rs/foo'.
          */
         readonly abbreviation: string;
+    }
+
+    /**
+     * Represents a source of tree nodes.
+     */
+    export interface NodeSource {
+        /**
+         * Creates a NodeContributor which contributes the nodes from the source at a
+         * given location.
+         * @param parentFolder The name of the folder under which the nodes should be contributed,
+         * or undefined if the nodes should be contributed directly under the context tree node.
+         * @returns A NodeContributor which, when registered, adds the nodes from the source
+         * under the specified folder.
+         */
+        at(parentFolder: string | undefined): NodeContributor;
+        /**
+         * Gets tree nodes from the source.
+         * @returns The set of tree nodes obtained from the source.
+         */
+        nodes(): Promise<Node[]>;
+    }
+
+    /**
+     * Exposes built-in node types for reuse as custom NodeContributors.
+     */
+    export interface NodeSources {
+        /**
+         * A NodeSet consisting of a single folder node which, when expanded, shows all resources of a
+         * specific type.
+         * @param displayName The singular display name of the resource type. Example: Stateful Set.
+         * @param pluralDisplayName The plural display name of the resource type - used as the folder display name. Example: Stateful Sets.
+         * @param manifestKind The string used to identify the resource type in Kubernetes manifests. Example: StatefulSet.
+         * @param abbreviation The string used to identify the resource type on the kubectl command line. Example: sts.
+         * @returns A NodeSet which provides the requested folder node.
+         */
+        resourceFolder(displayName: string, pluralDisplayName: string, manifestKind: string, abbreviation: string): NodeSource;
+        /**
+         * A NodeSet consisting of a single folder node which, when expanded, displays an arbitrary set of nodes.
+         * @param displayName The display name of the folder.
+         * @param contextValue The context value for the folder's TreeItem, if you need to associate commands with the folder.
+         * @param children The nodes to display under the grouping folder.
+         * @returns A NodeSet which provides the requested folder node.
+         */
+        groupingFolder(displayName: string, contextValue: string | undefined, ...children: NodeSource[]): NodeSource;
     }
 }
