@@ -334,6 +334,14 @@ export namespace ClusterExplorerV1 {
          */
         at(parentFolder: string | undefined): NodeContributor;
         /**
+         * Creates a new NodeSource which will return the same node(s) as this, but
+         * only if a condition holds.
+         * @param condition The condition under which the new NodeSource will return node(s).
+         * @returns A NodeSource which will return the same node(s) as this, but
+         * only if the specified condition holds.
+         */
+        if(condition: () => boolean | Thenable<boolean>): NodeSource;
+        /**
          * Gets tree nodes from the source.
          * @returns The set of tree nodes obtained from the source.
          */
