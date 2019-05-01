@@ -1,6 +1,6 @@
 {
   "name": "vscode-kubernetes-tools-api",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "description": "Documents and encapsulates the API for the Kubernetes extension for Visual Studio Code",
   "main": "js/index.js",
   "types": "js/index.d.ts",
