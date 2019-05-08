@@ -1,5 +1,13 @@
 # Change Log
 
+## 0.0.8
+
+* Updated Kubectl API with option of showing forwarded ports in user interface.
+
+## 0.0.7
+
+* Updated Cluster Explorer API to offer re-use of built-in resource folder and grouping folder
+
 ## 0.0.6
 
 * Updated Cluster Explorer API to support customising the appearance of existing nodes
