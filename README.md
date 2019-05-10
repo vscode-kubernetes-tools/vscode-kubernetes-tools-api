@@ -2,11 +2,59 @@
 
 A NPM package providing documentation and helpers for using the [Kubernetes extension for Visual
 Studio Code](https://marketplace.visualstudio.com/items?itemName=ms-kubernetes-tools.vscode-kubernetes-tools)
-in your own VS Code extensions.
+in your own VS Code extensions.  You can use this to:
 
-This is a placeholder release of the package for internal development purposes; the API surfaced
-in this package is not yet in the released build of the extension.  Full package
-documentation will be added when the extension API is released.
+* Add nodes to the Cluster Explorer tree
+* Add custom commands to the Cluster Explorer
+* Customise the appearance of the Cluster Explorer
+* Invoke `kubectl` features in a way that's consistent with the core extension
+* Integrate additional clouds or other Kubernetes environments into the extension
+
+The package includes TypeScript type declarations and JSDoc comments.  For usage information and
+samples, see https://aka.ms/vscodekubeapi.
+
+# Example usage
+
+```javascript
+// Using TypeScript for sample purposes but it all works in JavaScript too!
+
+import * as vscode from 'vscode';
+import * as k8s from 'vscode-kubernetes-tools-api';
+
+export function activate(context: vscode.ExtensionContext) {
+    const disposable = vscode.commands.registerCommand('k8stop.top', showResourceUsage);
+    context.subscriptions.push(disposable);
+}
+
+async function showResourceUsage(target?: any): Promise<void> {
+    // Standard pattern for accessing the APIs
+    const explorer = await k8s.extension.clusterExplorer.v1;
+    if (!explorer.available) {
+        vscode.window.showErrorMessage(`Command not available: ${explorer.reason}`);
+        return;
+    }
+    const kubectl = await k8s.extension.kubectl.v1;
+    if (!kubectl.available) {
+        vscode.window.showErrorMessage(`kubectl not available: ${kubectl.reason}`);
+        return;
+    }
+
+    // Example of using the Cluster Explorer API to figure out what was clicked
+    const node = explorer.api.resolveCommandTarget(target);
+    if (node && node.nodeType === 'resource' && node.resourceKind.manifestKind === 'Node') {
+
+        // Example of using the kubectl API to invoke a command
+        const topResult = await kubectl.api.invokeCommand(`top node ${node.name}`);
+
+        if (!topResult || topResult.code !== 0) {
+            vscode.window.showErrorMessage(`Can't get resource usage: ${topResult ? topResult.stderr : 'unable to run kubectl'}`);
+            return;
+        }
+        const topCommandOutput = topResult.stdout;
+        // show topCommandOutput as required;
+    }
+}
+```
 
 # Contributing
 
