@@ -1,5 +1,5 @@
 /**
- * Exposes the Kubernetes extension's Configuration settings
+ * Exposes the Kubernetes extension's Configuration settings.
  */
 export interface ConfigurationV1 {
     /**
@@ -15,11 +15,11 @@ export namespace ConfigurationV1 {
      */
     export interface HostKubeconfigPath {
         /**
-         * The environment the path relates to
+         * The environment the path relates to.
          */
         readonly pathType: 'host';
         /**
-         * The path to the kubeconfig
+         * The path to the kubeconfig.
          */
         hostPath: string;
     }
@@ -27,16 +27,16 @@ export namespace ConfigurationV1 {
     /**
      * Represents the path to the kubeconfig on WSL.
      */
-    export interface WslKubeconfigPath {
+    export interface WSLKubeconfigPath {
         /**
-         * The environment the path relates to
+         * The environment the path relates to.
          */
         readonly pathType: 'wsl';
         /**
-         * The path to the kubeconfig
+         * The path to the kubeconfig.
          */
         wslPath: string;
     }
 
-    export type KubeconfigPath = HostKubeconfigPath | WslKubeconfigPath;
+    export type KubeconfigPath = HostKubeconfigPath | WSLKubeconfigPath;
 }
