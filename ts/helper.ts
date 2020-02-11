@@ -6,6 +6,7 @@ import { KubectlV1 } from './kubectl/v1';
 import { ClusterExplorerV1 } from './cluster-explorer/v1';
 import { HelmV1 } from './helm/v1';
 import { CloudExplorerV1 } from './cloudexplorer/v1';
+import { ConfigurationV1 } from './configuration/v1';
 
 class Lazy<T> {
     private value: T | undefined = undefined;
@@ -48,6 +49,9 @@ export class ExtensionHelper implements Extension {
     });
     readonly cloudExplorer = readonlify({
         v1: this.get<CloudExplorerV1>("cloudexplorer", "v1"),
+    });
+    readonly configuration = readonlify({
+        v1: this.get<ConfigurationV1>("configuration", "v1"),
     });
 }
 

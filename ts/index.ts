@@ -9,6 +9,8 @@ import { HelmAPI } from './helm/versions';
 import { HelmV1 } from './helm/v1';
 import { CloudExplorerAPI } from './cloudexplorer/versions';
 import { CloudExplorerV1 } from './cloudexplorer/v1';
+import { ConfigurationAPI } from './configuration/versions';
+import { ConfigurationV1 } from './configuration/v1';
 
 export { ClusterProviderAPI } from './clusterprovider/versions';
 export { ClusterProviderV1 } from './clusterprovider/v1';
@@ -24,6 +26,9 @@ export { HelmV1 } from './helm/v1';
 
 export { CloudExplorerAPI } from './cloudexplorer/versions';
 export { CloudExplorerV1 } from './cloudexplorer/v1';
+
+export { ConfigurationAPI } from './configuration/versions';
+export { ConfigurationV1 } from './configuration/v1';
 
 /**
  * Provides convenient access to the Kubernetes extension's API.
@@ -81,6 +86,10 @@ export interface Extension {
      * Provides access to the Kubernetes extension's Cloud Explorer API.
      */
     readonly cloudExplorer: CloudExplorerAPI;
+    /**
+     * Provides access to the Kubernetes extension's Configuration API.
+     */
+    readonly configuration: ConfigurationAPI;
 }
 
 /**
@@ -155,6 +164,7 @@ export type ComponentKey<T> =
     T extends ClusterExplorerV1 ? "clusterexplorer" :
     T extends HelmV1 ? "helm" :
     T extends CloudExplorerV1 ? "cloudexplorer" :
+    T extends ConfigurationV1 ? "configuration" :
     "invalid_api_interface";
 
 /**
@@ -167,4 +177,5 @@ export type Version<T> =
     T extends ClusterExplorerV1 ? "v1" :
     T extends HelmV1 ? "v1" :
     T extends CloudExplorerV1 ? "v1" :
+    T extends ConfigurationV1 ? "v1" :
     "invalid_api_interface";
