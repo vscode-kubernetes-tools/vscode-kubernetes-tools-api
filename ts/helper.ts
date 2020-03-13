@@ -7,6 +7,7 @@ import { ClusterExplorerV1 } from './cluster-explorer/v1';
 import { HelmV1 } from './helm/v1';
 import { CloudExplorerV1 } from './cloudexplorer/v1';
 import { ConfigurationV1 } from './configuration/v1';
+import { ClusterExplorerV2 } from './cluster-explorer/v2';
 
 class Lazy<T> {
     private value: T | undefined = undefined;
@@ -43,6 +44,7 @@ export class ExtensionHelper implements Extension {
     });
     readonly clusterExplorer = readonlify({
         v1: this.get<ClusterExplorerV1>("clusterexplorer", "v1"),
+        v2: this.get<ClusterExplorerV2>("clusterexplorer", "v2"),
     });
     readonly helm = readonlify({
         v1: this.get<HelmV1>("helm", "v1"),
