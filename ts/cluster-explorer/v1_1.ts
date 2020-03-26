@@ -4,7 +4,7 @@ import * as vscode from 'vscode';
  * Provides methods for working with the Kubernetes extension's Cluster Explorer
  * tree view.
  */
-export interface ClusterExplorerV2 {
+export interface ClusterExplorerV1_1 {
     /**
      * Resolves a target passed to a command handler as part of a right-click on a node in the
      * Kubernetes extension's Cluster Explorer, converting it to a well-defined object.
@@ -29,30 +29,30 @@ export interface ClusterExplorerV2 {
         }
         }
      */
-    resolveCommandTarget(target?: any): ClusterExplorerV2.ClusterExplorerNode | undefined;
+    resolveCommandTarget(target?: any): ClusterExplorerV1_1.ClusterExplorerNode | undefined;
     /**
      * Registers an object to add nodes to the Cluster Explorer.  The object will be
      * consulted every time the Kubernetes extension expands or refreshes the explorer.
      * @param nodeContributor An object which can add nodes to the Cluster Explorer.
      */
-    registerNodeContributor(nodeContributor: ClusterExplorerV2.NodeContributor): void;
+    registerNodeContributor(nodeContributor: ClusterExplorerV1_1.NodeContributor): void;
     /**
      * Exposes built-in node types for reuse as custom NodeContributors.
      */
-    readonly nodeSources: ClusterExplorerV2.NodeSources;
+    readonly nodeSources: ClusterExplorerV1_1.NodeSources;
     /**
      * Registers an object to customize the appearance of nodes in the Cluster Explorer.  The object will be
      * consulted every time the Kubernetes extension displays a tree node.
      * @param nodeUICustomizer An object which can customize the appearance of nodes in the Cluster Explorer.
      */
-    registerNodeUICustomizer(nodeUICustomizer: ClusterExplorerV2.NodeUICustomizer): void;
+    registerNodeUICustomizer(nodeUICustomizer: ClusterExplorerV1_1.NodeUICustomizer): void;
     /**
      * Refreshes the Cluster Explorer.
      */
     refresh(): void;
 }
 
-export namespace ClusterExplorerV2 {
+export namespace ClusterExplorerV1_1 {
     /**
      * Provides logic for adding new nodes to the Cluster Explorer tree.
      */
@@ -71,7 +71,7 @@ export namespace ClusterExplorerV2 {
          * children present. false if the object will not want to contribute children:
          * in this case, getChildren will not be called.
          */
-        contributesChildren(parent: ClusterExplorerV2.ClusterExplorerNode | undefined): boolean;
+        contributesChildren(parent: ClusterExplorerV1_1.ClusterExplorerNode | undefined): boolean;
         /**
          * Called by the Kubernetes extension to get the children that you want to add to
          * a parent node. This is called only if the object has previously returned true
@@ -84,7 +84,7 @@ export namespace ClusterExplorerV2 {
          * children created by the base extension or by previously registered NodeContributors.
          * It is okay to return an empty array.
          */
-        getChildren(parent: ClusterExplorerV2.ClusterExplorerNode | undefined): Promise<Node[]>;
+        getChildren(parent: ClusterExplorerV1_1.ClusterExplorerNode | undefined): Promise<Node[]>;
     }
 
     /**

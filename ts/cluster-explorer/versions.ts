@@ -1,7 +1,7 @@
 import { API } from '..';
 
 import { ClusterExplorerV1 } from './v1';
-import { ClusterExplorerV2 } from './v2';
+import { ClusterExplorerV1_1 } from './v1_1';
 
 /**
  * Provides access to the Kubernetes extension's Explorer Tree API.
@@ -13,7 +13,7 @@ export interface ClusterExplorerAPI {
     readonly v1: Promise<API<ClusterExplorerV1>>;
 
     /**
-     * Provides access to v2 of the Kubernetes extension's Explorer Tree API.
+     * Provides access to v1_1 of the Kubernetes extension's Explorer Tree API.
      */
-    readonly v2: Promise<API<ClusterExplorerV2>>;
+    readonly v1_1: Promise<API<ClusterExplorerV1_1>>;
 }
