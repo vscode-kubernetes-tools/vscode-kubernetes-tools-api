@@ -1,5 +1,15 @@
 # Change Log
 
+## 1.1.0
+
+* Added configuration API
+
+Thanks to @amsoedal!
+
+## 1.0.0
+
+* Initial release
+
 ## 0.0.8
 
 * Updated Kubectl API with option of showing forwarded ports in user interface.
