@@ -136,7 +136,7 @@ export namespace ClusterExplorerV1_1 {
         /**
          * The namespace containing the resource.
          */
-        readonly namespace: string | null;
+        readonly namespace: string;
         /**
          * The kind of the resource, such as pod or service.
          */
@@ -148,7 +148,7 @@ export namespace ClusterExplorerV1_1 {
         /**
          * The metadata of the resource.
          */
-        readonly metadata?: any;
+        readonly metadata?: object;
     }
 
     /**
@@ -318,7 +318,9 @@ export namespace ClusterExplorerV1_1 {
          * or 'rs'.  For example, 'kubectl get deployment', 'kubectl delete rs/foo'.
          */
         readonly abbreviation: string;
-
+        /**
+         * The string representing the resource kind in Kubernetes API URIs.
+         */
         readonly apiName?: string;
     }
 
@@ -361,7 +363,7 @@ export namespace ClusterExplorerV1_1 {
          * @param pluralDisplayName The plural display name of the resource type - used as the folder display name. Example: Stateful Sets.
          * @param manifestKind The string used to identify the resource type in Kubernetes manifests. Example: StatefulSet.
          * @param abbreviation The string used to identify the resource type on the kubectl command line. Example: sts.
-         * @param apiName The string used to identify the API URI in Kubernetes. Example: statefulsets.
+         * @param apiName The string used to identify the resource type in Kubernetes API URIs. Example: statefulsets.
          * @returns A NodeSet which provides the requested folder node.
          */
         resourceFolder(displayName: string, pluralDisplayName: string, manifestKind: string, abbreviation: string, apiName?: string): NodeSource;
