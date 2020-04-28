@@ -1,5 +1,11 @@
 # Change Log
 
+## 1.2.0
+
+* Added Cluster Explorer API v1.1
+
+Thanks to @lstocchi
+
 ## 1.1.0
 
 * Added configuration API
