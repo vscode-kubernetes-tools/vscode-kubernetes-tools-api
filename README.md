@@ -28,7 +28,7 @@ export function activate(context: vscode.ExtensionContext) {
 
 async function showResourceUsage(target?: any): Promise<void> {
     // Standard pattern for accessing the APIs
-    const explorer = await k8s.extension.clusterExplorer.v1;
+    const explorer = await k8s.extension.clusterExplorer.v1_1;
     if (!explorer.available) {
         vscode.window.showErrorMessage(`Command not available: ${explorer.reason}`);
         return;
