@@ -10,9 +10,9 @@ import { Event } from 'vscode';
 export interface ConfigurationV1_1 {
     getKubeconfigPath(): ConfigurationV1_1.KubeconfigPath;
 
-    onDidChangeKubeconfigPath: Event<ConfigurationV1_1.KubeconfigPath>;
+    readonly onDidChangeKubeconfigPath: Event<ConfigurationV1_1.KubeconfigPath>;
 
-    onDidChangeContext: Event<string | null>;
+    readonly onDidChangeContext: Event<string | null>;
 }
 
 export namespace ConfigurationV1_1 {
