@@ -8,6 +8,7 @@ import { HelmV1 } from './helm/v1';
 import { CloudExplorerV1 } from './cloudexplorer/v1';
 import { ConfigurationV1 } from './configuration/v1';
 import { ClusterExplorerV1_1 } from './cluster-explorer/v1_1';
+import { LocalRedirectionDebuggerV1 } from './localredirectiondebugger/v1';
 
 class Lazy<T> {
     private value: T | undefined = undefined;
@@ -54,6 +55,9 @@ export class ExtensionHelper implements Extension {
     });
     readonly configuration = readonlify({
         v1: this.get<ConfigurationV1>("configuration", "v1"),
+    });
+    readonly localRedirectionDebugger = readonlify({
+        v1: this.get<LocalRedirectionDebuggerV1>("localredirectiondebugger", "v1"),
     });
 }
 
