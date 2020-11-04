@@ -10,11 +10,6 @@ export interface LocalRedirectionDebuggerV1 {
      * @param localRedirectionDebugger The local redirection debugger to be registered.
      */
     register(localRedirectionDebugger: LocalRedirectionDebuggerV1.LocalRedirectionDebugger): void;
-    /**
-     * Lists registered local redirection debuggers.
-     * @returns The local redirection debuggers registered for the Debug (Redirect locally) command.
-     */
-    list(): ReadonlyArray<LocalRedirectionDebuggerV1.LocalRedirectionDebugger>;
 }
 
 export namespace LocalRedirectionDebuggerV1 {
