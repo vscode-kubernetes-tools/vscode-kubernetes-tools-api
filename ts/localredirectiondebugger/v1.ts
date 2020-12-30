@@ -10,6 +10,15 @@ export interface LocalRedirectionDebuggerV1 {
      * @param localRedirectionDebugger The local redirection debugger to be registered.
      */
     register(localRedirectionDebugger: LocalRedirectionDebuggerV1.LocalRedirectionDebugger): void;
+
+    /**
+     * Checks if at least one local redirection debug provider has been registered, and if
+     * so calls the debuggers' startDebugging method.
+     * @param target The object passed by Visual Studio Code as the command target. If a
+     * local redirection debugger has been installed, this target will be passed to the
+     * debugger's startDebugging method.
+     */
+    startLocalRedirectionDebugProvider(target?: any): void;
 }
 
 export namespace LocalRedirectionDebuggerV1 {
