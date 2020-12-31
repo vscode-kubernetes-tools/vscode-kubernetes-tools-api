@@ -12,8 +12,8 @@ import { CloudExplorerAPI } from './cloudexplorer/versions';
 import { CloudExplorerV1 } from './cloudexplorer/v1';
 import { ConfigurationAPI } from './configuration/versions';
 import { ConfigurationV1 } from './configuration/v1';
-import { LocalRedirectionDebuggerAPI } from './localredirectiondebugger/versions';
-import { LocalRedirectionDebuggerV1 } from './localredirectiondebugger/v1';
+import { LocalTunnelDebuggerAPI } from './localtunneldebugger/versions';
+import { LocalTunnelDebuggerV1 } from './localtunneldebugger/v1';
 
 export { ClusterProviderAPI } from './clusterprovider/versions';
 export { ClusterProviderV1 } from './clusterprovider/v1';
@@ -33,8 +33,8 @@ export { CloudExplorerV1 } from './cloudexplorer/v1';
 
 export { ConfigurationAPI } from './configuration/versions';
 export { ConfigurationV1 } from './configuration/v1';
-export { LocalRedirectionDebuggerAPI } from './localredirectiondebugger/versions';
-export { LocalRedirectionDebuggerV1 } from './localredirectiondebugger/v1';
+export { LocalTunnelDebuggerAPI } from './localtunneldebugger/versions';
+export { LocalTunnelDebuggerV1 } from './localtunneldebugger/v1';
 
 /**
  * Provides convenient access to the Kubernetes extension's API.
@@ -97,9 +97,9 @@ export interface Extension {
      */
     readonly configuration: ConfigurationAPI;
     /**
-     * Provides access to the Kubernetes extension's Local Redirection Debugger API.
+     * Provides access to the Kubernetes extension's Local Tunnel Debugger API.
      */
-    readonly localRedirectionDebugger: LocalRedirectionDebuggerAPI;
+    readonly localTunnelDebugger: LocalTunnelDebuggerAPI;
 }
 
 /**
@@ -175,7 +175,7 @@ export type ComponentKey<T> =
     T extends HelmV1 ? "helm" :
     T extends CloudExplorerV1 ? "cloudexplorer" :
     T extends ConfigurationV1 ? "configuration" :
-    T extends LocalRedirectionDebuggerV1 ? "localredirectiondebugger" :
+    T extends LocalTunnelDebuggerV1 ? "localtunneldebugger" :
     "invalid_api_interface";
 
 /**
@@ -189,5 +189,5 @@ export type Version<T> =
     T extends HelmV1 ? "v1" :
     T extends CloudExplorerV1 ? "v1" :
     T extends ConfigurationV1 ? "v1" :
-    T extends LocalRedirectionDebuggerV1 ? "v1" :
+    T extends LocalTunnelDebuggerV1 ? "v1" :
     "invalid_api_interface";
