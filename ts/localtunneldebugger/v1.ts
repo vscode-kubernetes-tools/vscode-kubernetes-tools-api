@@ -9,7 +9,7 @@ export interface LocalTunnelDebuggerV1 {
      * local tunnel debugger wil show its own user interface once invoked.
      * @param localTunnelDebugger The local tunnel debugger to be registered.
      */
-    register(localTunnelDebugger: LocalTunnelDebuggerV1.LocalTunnelDebugger): void;
+    registerLocalTunnelDebugProvider(localTunnelDebugger: LocalTunnelDebuggerV1.LocalTunnelDebugger): void;
 
     /**
      * Checks if at least one local tunnel debug provider has been registered, and if
