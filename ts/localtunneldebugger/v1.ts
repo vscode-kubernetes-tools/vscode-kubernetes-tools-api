@@ -1,15 +1,15 @@
 /**
- * Supports working with the Debug (Redirect locally) command.
+ * Supports working with the Debug (Local Tunnel) command.
  */
 export interface LocalTunnelDebuggerV1 {
     /**
      * Registers a local tunnel debugger. The debugger will be invoked on user action
-     * when the user selects the Debug (Redirect locally) command in the cluster explorer,
-     * or when running the Debug (Redirect locally) command in the command palette. The
+     * when the user selects the Debug (Local Tunnel) command in the cluster explorer,
+     * or when running the Debug (Local Tunnel) command in the command palette. The
      * local tunnel debugger wil show its own user interface once invoked.
-     * @param localTunnelDebugger The local tunnel debugger to be registered.
+     * @param localTunnelDebugProvider The local tunnel debugger to be registered.
      */
-    registerLocalTunnelDebugProvider(localTunnelDebugger: LocalTunnelDebuggerV1.LocalTunnelDebugProvider): void;
+    registerLocalTunnelDebugProvider(localTunnelDebugProvider: LocalTunnelDebuggerV1.LocalTunnelDebugProvider): void;
 
     /**
      * Checks if at least one local tunnel debug provider has been registered, and if
