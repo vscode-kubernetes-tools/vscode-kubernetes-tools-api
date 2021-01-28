@@ -13,12 +13,12 @@ export interface LocalTunnelDebuggerV1 {
 
     /**
      * Checks if at least one local tunnel debug provider has been registered, and if
-     * so calls the debuggers' startDebugging method.
+     * so calls the debuggers' startLocalTunnelDebugging method.
      * @param target The object passed by Visual Studio Code as the command target. If a
      * local tunnel debugger has been installed, this target will be passed to the
-     * debugger's startDebugging method.
+     * debugger's startLocalTunnelDebugging method.
      */
-    startLocalTunnelDebugProvider(target?: any): void;
+    startLocalTunnelDebugSession(target?: any): void;
 }
 
 export namespace LocalTunnelDebuggerV1 {
@@ -41,6 +41,6 @@ export namespace LocalTunnelDebuggerV1 {
          * undefined if the debugging action is initiated through the
          * Visual Studio command palette.
          */
-        startDebugging(target?: any): void;
+        startLocalTunnelDebugging(target?: any): void;
     }
 }
