@@ -14,6 +14,7 @@ import { ConfigurationAPI } from './configuration/versions';
 import { ConfigurationV1 } from './configuration/v1';
 import { LocalTunnelDebuggerAPI } from './localtunneldebugger/versions';
 import { LocalTunnelDebuggerV1 } from './localtunneldebugger/v1';
+import { ConfigurationV1_1 } from './configuration/v1_1';
 
 export { ClusterProviderAPI } from './clusterprovider/versions';
 export { ClusterProviderV1 } from './clusterprovider/v1';
@@ -188,6 +189,6 @@ export type Version<T> =
     T extends ClusterExplorerV1 | ClusterExplorerV1_1 ? "v1" | "v1_1" :
     T extends HelmV1 ? "v1" :
     T extends CloudExplorerV1 ? "v1" :
-    T extends ConfigurationV1 ? "v1" :
+    T extends ConfigurationV1 | ConfigurationV1_1 ? "v1" |  "v1_1":
     T extends LocalTunnelDebuggerV1 ? "v1" :
     "invalid_api_interface";
