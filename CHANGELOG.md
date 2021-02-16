@@ -1,5 +1,12 @@
 # Change Log
 
+## 1.3.0
+
+* Added Configuration API v1.1
+* Added Local Tunnel Debugger API v1
+
+Thanks to @amsoedal and @evidolob
+
 ## 1.2.0
 
 * Added Cluster Explorer API v1.1
