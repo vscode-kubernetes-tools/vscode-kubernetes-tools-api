@@ -1,0 +1,35 @@
+{
+  "root": true,
+  "parser": "@typescript-eslint/parser",
+  "parserOptions": {
+    "ecmaVersion": 2020,
+    "sourceType": "module"
+  },
+  "plugins": [
+    "@typescript-eslint"
+  ],
+  "extends": [
+    "eslint:recommended"
+  ],
+  "env": {
+    "node": true,
+    "es6": true
+  },
+  "globals": {
+    "Thenable": "readonly"
+  },
+  "rules": {
+    "@typescript-eslint/no-unused-vars": "warn",
+    "@typescript-eslint/no-explicit-any": "warn",
+    "prefer-const": "error",
+    "no-var": "error",
+    "no-redeclare": "off",
+    "eqeqeq": "error",
+    "prefer-arrow-callback": "error",
+    "prefer-template": "error"
+  },
+  "ignorePatterns": [
+    "js/**/*",
+    "node_modules/**/*"
+  ]
+}
