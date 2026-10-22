@@ -1,5 +1,7 @@
 const assert = require('assert');
 const Module = require('module');
+const path = require('path');
+const ts = require('typescript');
 
 function loadLibrary(getExtension) {
     delete require.cache[require.resolve('../js/index')];
@@ -19,6 +21,39 @@ function loadLibrary(getExtension) {
 }
 
 describe('Kubectl V2 accessors', () => {
+    it('typechecks streaming and port-forward consumers against the emitted package declarations', () => {
+        const filename = path.join(__dirname, 'v2-consumer.ts');
+        const source = `
+            import { extension } from '../js';
+            async function consume(): Promise<void> {
+                const kubectl = await extension.kubectl.v2;
+                if (!kubectl.available) { return; }
+                const command = kubectl.api.observeCommand(['logs', 'pod'], {
+                    onStdout: (chunk: string) => { void chunk; },
+                    onStderr: (chunk: string) => { void chunk; },
+                });
+                const completion = await command.result;
+                if (completion.status === 'exited') { const code: number = completion.code; void code; }
+                const forwarded = await kubectl.api.portForward('pod', 'default', 9001, 80, {
+                    showInUI: { location: 'status-bar', description: 'Tool', onCancel: () => {} },
+                });
+                if (forwarded.status === 'ready') {
+                    forwarded.session.dispose();
+                    await forwarded.session.result;
+                }
+            }
+            void consume;
+        `;
+        const options = { noEmit: true, strict: true, target: ts.ScriptTarget.ES2015, moduleResolution: ts.ModuleResolutionKind.NodeJs };
+        const host = ts.createCompilerHost(options);
+        const getSourceFile = host.getSourceFile.bind(host);
+        host.getSourceFile = (file, languageVersion, onError) => file === filename ?
+            ts.createSourceFile(file, source, languageVersion, true) : getSourceFile(file, languageVersion, onError);
+        const program = ts.createProgram([filename], options, host);
+        const diagnostics = ts.getPreEmitDiagnostics(program);
+        assert.deepStrictEqual(diagnostics.map((d) => ts.flattenDiagnosticMessageText(d.messageText, '\n')), []);
+    });
+
     it('requests the V2 contract while retaining V1 access', async () => {
         const calls = [];
         const v1 = { invokeCommand: () => Promise.resolve(undefined) };
