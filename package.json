@@ -11,7 +11,7 @@
     "compile": "tsc -p ./",
     "watch": "tsc -watch -p ./",
     "prepare": "node ./node_modules/vscode/bin/install && npm run compile",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "npm run compile && mocha \"test/**/*.test.js\""
   },
   "repository": {
     "type": "git",

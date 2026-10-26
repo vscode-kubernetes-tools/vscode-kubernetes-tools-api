@@ -3,6 +3,7 @@ import { ClusterProviderAPI } from './clusterprovider/versions';
 import { ClusterProviderV1 } from './clusterprovider/v1';
 import { KubectlAPI } from './kubectl/versions';
 import { KubectlV1 } from './kubectl/v1';
+import { KubectlV2 } from './kubectl/v2';
 import { ClusterExplorerAPI } from './cluster-explorer/versions';
 import { ClusterExplorerV1 } from './cluster-explorer/v1';
 import { ClusterExplorerV1_1 } from './cluster-explorer/v1_1';
@@ -21,6 +22,7 @@ export { ClusterProviderV1 } from './clusterprovider/v1';
 
 export { KubectlAPI } from './kubectl/versions';
 export { KubectlV1 } from './kubectl/v1';
+export { KubectlV2 } from './kubectl/v2';
 
 export { ClusterExplorerAPI } from './cluster-explorer/versions';
 export { ClusterExplorerV1 } from './cluster-explorer/v1';
@@ -171,6 +173,7 @@ export interface APIBroker {
  */
 export type ComponentKey<T> =
     T extends ClusterProviderV1 ? "clusterprovider" :
+    T extends KubectlV2 ? "kubectl" :
     T extends KubectlV1 ? "kubectl" :
     T extends ClusterExplorerV1 | ClusterExplorerV1_1 ? "clusterexplorer" :
     T extends HelmV1 ? "helm" :
@@ -185,6 +188,7 @@ export type ComponentKey<T> =
  */
 export type Version<T> =
     T extends ClusterProviderV1 ? "v1" :
+    T extends KubectlV2 ? "v2" :
     T extends KubectlV1 ? "v1" :
     T extends ClusterExplorerV1 | ClusterExplorerV1_1 ? "v1" | "v1_1" :
     T extends HelmV1 ? "v1" :

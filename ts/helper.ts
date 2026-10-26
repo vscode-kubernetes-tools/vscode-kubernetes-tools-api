@@ -3,6 +3,7 @@ import { Extension, APIBroker, API, ComponentKey, Version } from '.';
 import { MS_KUBERNETES_EXTENSION_ID } from './constants';
 import { ClusterProviderV1 } from './clusterprovider/v1';
 import { KubectlV1 } from './kubectl/v1';
+import { KubectlV2 } from './kubectl/v2';
 import { ClusterExplorerV1 } from './cluster-explorer/v1';
 import { HelmV1 } from './helm/v1';
 import { CloudExplorerV1 } from './cloudexplorer/v1';
@@ -43,6 +44,7 @@ export class ExtensionHelper implements Extension {
     });
     readonly kubectl = readonlify({
         v1: this.get<KubectlV1>("kubectl", "v1"),
+        v2: this.get<KubectlV2>("kubectl", "v2"),
     });
     readonly clusterExplorer = readonlify({
         v1: this.get<ClusterExplorerV1>("clusterexplorer", "v1"),
