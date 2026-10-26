@@ -4,8 +4,9 @@ const path = require('path');
 const ts = require('typescript');
 
 function loadLibrary(getExtension) {
-    delete require.cache[require.resolve('../js/index')];
-    delete require.cache[require.resolve('../js/helper')];
+    const modules = ['../js/index', '../js/helper'].map((name) => require.resolve(name));
+    const cached = modules.map((name) => require.cache[name]);
+    modules.forEach((name) => { delete require.cache[name]; });
     const originalLoad = Module._load;
     Module._load = function (name) {
         if (name === 'vscode') {
@@ -17,10 +18,20 @@ function loadLibrary(getExtension) {
         return require('../js/index');
     } finally {
         Module._load = originalLoad;
+        modules.forEach((name, index) => {
+            delete require.cache[name];
+            if (cached[index]) { require.cache[name] = cached[index]; }
+        });
     }
 }
 
 describe('Kubectl V2 accessors', () => {
+    it('restores package module caches after loading a mocked extension', () => {
+        const modules = ['../js/index', '../js/helper'].map((name) => require.resolve(name));
+        const cached = modules.map((name) => require.cache[name]);
+        loadLibrary(() => undefined);
+        assert.deepStrictEqual(modules.map((name) => require.cache[name]), cached);
+    });
     it('typechecks streaming and port-forward consumers against the emitted package declarations', () => {
         const filename = path.join(__dirname, 'v2-consumer.ts');
         const source = `

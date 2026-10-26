@@ -58,7 +58,7 @@ async function showResourceUsage(target?: any): Promise<void> {
 
 ## Shell-free kubectl API (V2)
 
-Request `extension.kubectl.v2` or `extension.get<KubectlV2>('kubectl', 'v2')`.
+Request `k8s.extension.kubectl.v2` or `k8s.extension.get<k8s.KubectlV2>('kubectl', 'v2')`.
 Older extension versions return `version-unknown`. Ask the user to update rather
 than falling back to the shell-based V1 API for dynamic values. V1 is unchanged.
 
